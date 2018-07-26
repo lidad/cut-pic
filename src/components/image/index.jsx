@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { injectActions, connect } from 'mickey';
-import ImageCanvas from './ImageCanvas';
+import ImageBlock from './ImageBlock';
 import style from './index.less';
 
 @injectActions
@@ -10,8 +10,9 @@ import style from './index.less';
 export default class Image extends Component {
   render() {
     const { images } = this.props;
-    return (<div className={style.image}>
-      {images.map((({ src, name }) => <img key={src} src={src} alt={name} />))}
+
+    return (<div className={style.images}>
+      {images.map((image => <ImageBlock key={image.src} imageProps={image} />))}
     </div>);
   }
 }
