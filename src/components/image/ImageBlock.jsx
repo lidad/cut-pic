@@ -8,18 +8,25 @@ const MAX_SIZE = 100;
 const MIN_SIZE = 1;
 
 export default class ImageBlock extends Component {
-  changeSize = (size) => {
+  state = {
+    rate: 1,
+  }
 
+  changeSize = (size) => {
+    const rate = size / MAX_SIZE;
+
+    this.setState({ rate });
   }
 
   render() {
+    const { rate } = this.state;
     const { imageProps } = this.props;
     const { src, name } = imageProps;
 
     return (<Card
       hoverable
       className={style.image}
-      cover={<ImageCanvas src={src} />}
+      cover={<ImageCanvas src={src} rate={rate} />}
     >
       <Meta
         title={name}
