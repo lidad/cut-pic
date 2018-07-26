@@ -3,8 +3,6 @@ import { injectActions, connect } from 'mickey';
 import { InputNumber } from 'antd';
 import style from './index.less';
 
-const srcReg = type => new RegExp(`.*${type};`);
-
 @injectActions
 @connect(store => ({
   size: store.picture.size,
@@ -36,7 +34,10 @@ export default class Size extends Component {
     const { changeSize } = actions.picture;
 
     return (<div className={style.size} >
-      <input className={style.upload} type="file" multiple onChange={this.uploadFile} />
+      <label className={style.upload}>
+        <input className={style.uploadInput} type="file" multiple onChange={this.uploadFile} />
+        选择文件
+      </label>
       <span>高（单位：px）</span>
       <InputNumber className={style.input} value={height} onChange={h => changeSize({ height: h })} />
       <span>宽（单位：px）</span>
