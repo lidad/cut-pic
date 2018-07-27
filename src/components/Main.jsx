@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import FileUpload from './FileUpload';
+import FileUpload from './fileUpload';
 import Image from './image';
 import style from './index.less';
 

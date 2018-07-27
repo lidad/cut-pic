@@ -1,8 +1,12 @@
 import produce from 'immer';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../../src/components/constant';
 
 export default {
   state: {
-    size: {},
+    size: {
+      height: CANVAS_WIDTH,
+      width: CANVAS_HEIGHT,
+    },
     images: [],
   },
 

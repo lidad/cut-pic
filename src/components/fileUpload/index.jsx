@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { injectActions, connect } from 'mickey';
-import { InputNumber } from 'antd';
+import { injectActions } from 'mickey';
+import Size from './Size';
 import style from './index.less';
 
 @injectActions
-@connect(store => ({
-  size: store.picture.size,
-}))
-export default class Size extends Component {
+export default class FileUpload extends Component {
   uploadFile = (e) => {
     const { files } = e.target;
     const { actions } = this.props;
@@ -29,19 +26,12 @@ export default class Size extends Component {
   }
 
   render() {
-    const { size, actions } = this.props;
-    const { width, height } = size;
-    const { changeSize } = actions.picture;
-
     return (<div className={style.size} >
       <label className={style.upload}>
         <input className={style.uploadInput} type="file" multiple onChange={this.uploadFile} />
         选择文件
       </label>
-      <span>高（单位：px）</span>
-      <InputNumber className={style.input} value={height} onChange={h => changeSize({ height: h })} />
-      <span>宽（单位：px）</span>
-      <InputNumber className={style.input} value={width} onChange={w => changeSize({ width: w })} />
+      <Size />
     </div>);
   }
 }

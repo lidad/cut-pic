@@ -1,0 +1,37 @@
+.size {
+  text-align: right;
+  .upload {
+    border: 1px #ccc dashed;
+    padding: 0 12px;
+    cursor: pointer;
+    height: 32px;
+    float: left;
+    line-height: 32px;
+    margin-top: 16px;
+    border-radius: 4px;
+    background-color: rgba(204, 204, 204, 0.7);
+    .uploadInput {
+      display: none;
+    }
+  }
+  .sizeInfo {
+    cursor: pointer;
+  }
+}
+
+.adjustSize {
+  width: 320px;
+  .sizeItem {
+    line-height: 36px;
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+    &>* {
+      display: inline-block;
+    }
+    .slider {}
+    .input {
+      margin-left: 8px;
+    }
+  }
+}

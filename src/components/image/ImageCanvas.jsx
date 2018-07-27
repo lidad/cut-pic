@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import style from './index.less';
-
-const CANVAS_HEIGHT = 300;
-const CANVAS_WIDTH = 300;
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CUT_IFRAME_WIDTH } from '../constant';
 
 export default class ImageCanvas extends Component {
   componentDidMount() {
@@ -31,6 +29,6 @@ export default class ImageCanvas extends Component {
   render() {
     this.drawImg();
 
-    return (<canvas width="300" height="300" ref={c => this.canvas = c} className={style.imageCanvas} />);
+    return (<canvas width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ref={c => this.canvas = c} className={style.imageCanvas} />);
   }
 }

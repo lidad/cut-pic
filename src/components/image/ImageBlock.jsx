@@ -3,15 +3,15 @@ import { Card, Slider } from 'antd';
 import { injectActions } from 'mickey';
 import ImageCanvas from './ImageCanvas';
 import style from './index.less';
+import { MAX_IMAGE_SIZE, MIN_IMAGE_SIZE } from '../constant';
+import CutIframe from './CutFrame';
 
 const { Meta } = Card;
-const MAX_SIZE = 100;
-const MIN_SIZE = 1;
 
 @injectActions
 export default class ImageBlock extends Component {
   state = {
-    size: MAX_SIZE,
+    size: MAX_IMAGE_SIZE,
   }
 
   changeSize = (size) => {
@@ -25,23 +25,37 @@ export default class ImageBlock extends Component {
     actions.picture.removeFile({ src });
   }
 
+  renderCanvas = () => {
+    const { size } = this.state;
+    const { src } = this.props.imageProps;
+    return (<div className={style.cardCover}>
+      <ImageCanvas src={src} rate={size / MAX_IMAGE_SIZE} />
+      <CutIframe className={style.cutIframe} />
+    </div>);
+  }
+
   render() {
     const { size } = this.state;
     const { imageProps } = this.props;
-    const { src, name } = imageProps;
+    const { name } = imageProps;
 
     return (<Card
       hoverable
       className={style.image}
       bodyStyle={{ borderTop: '1px solid #e8e8e8' }}
-      cover={<ImageCanvas src={src} rate={size / MAX_SIZE} />}
+      cover={this.renderCanvas()}
     >
       <Meta
         title={<p className={style.name}>{name}
           <a className={style.remove} onClick={this.removeImage}>移除</a>
         </p>}
       />
-      <Slider max={MAX_SIZE * 2} min={MIN_SIZE} onChange={this.changeSize} value={size} />
+      <Slider
+        max={MAX_IMAGE_SIZE * 2}
+        min={MIN_IMAGE_SIZE}
+        onChange={this.changeSize}
+        value={size}
+      />
     </Card>);
   }
 }
