@@ -19,7 +19,7 @@ export default class Size extends Component {
       src: target.result,
     });
 
-    Array.prototype.forEach.apply(files, [async (file) => {
+    Array.prototype.forEach.apply(files, [(file) => {
       if (file.type.match('image.*')) {
         const reader = new FileReader();
         reader.readAsDataURL(file);

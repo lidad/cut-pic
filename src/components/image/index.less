@@ -1,13 +1,28 @@
-.images{
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: flex-start;
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   background-color: #ffffff;
-  padding:24px;
-    .image{
-      margin-right:16px;
-      margin-bottom: 12px;
-      .imageCanvas{
+  padding: 24px;
+  .image {
+    margin-right: 16px;
+    margin-bottom: 12px;
+    width: 302px;
+    .name {
+      margin-bottom: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      padding-right: 34px;
+      .remove {
+        position: absolute;
+        right: 0;
       }
     }
+    .imageCanvas {
+      width: 300px;
+      height: 300px;
+    }
+  }
 }

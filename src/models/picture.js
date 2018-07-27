@@ -20,4 +20,8 @@ export default {
   addFile: (state, image) => produce(state, (draft) => {
     draft.images.push(image);
   }),
+
+  removeFile: (state, { src }) => produce(state, (draft) => {
+    draft.images = state.images.filter(image => image.src !== src);
+  }),
 };
