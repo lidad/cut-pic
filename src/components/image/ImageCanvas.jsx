@@ -13,22 +13,32 @@ export default class ImageCanvas extends Component {
     if (!this.ctx) {
       return;
     }
-    const { src, rate } = this.props;
+    const { imageProps, rate } = this.props;
+    const { src, positionDiff } = imageProps;
+    const { diffX, diffY } = positionDiff;
     const image = new Image();
 
     image.src = src;
     image.onload = () => {
       const { width, height } = image;
       const imageToCanvasRate = Math.min(CANVAS_WIDTH / width, CANVAS_HEIGHT / height);
-
       this.ctx.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
-      this.ctx.drawImage(image, 0, 0, imageToCanvasRate * width * rate, imageToCanvasRate * height * rate);
+      this.ctx.drawImage(image,
+        rate * (0 + diffX),
+        rate * (0 + diffY),
+        (imageToCanvasRate * width * rate),
+        (imageToCanvasRate * height * rate));
     };
   }
 
   render() {
     this.drawImg();
 
-    return (<canvas width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ref={c => this.canvas = c} className={style.imageCanvas} />);
+    return (<canvas
+      width={CANVAS_WIDTH}
+      height={CANVAS_HEIGHT}
+      className={style.imageCanvas}
+      ref={c => this.canvas = c}
+    />);
   }
 }

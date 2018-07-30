@@ -8,6 +8,14 @@ import style from './index.less';
   images: store.picture.images,
 }))
 export default class Image extends Component {
+  componentDidMount() {
+    const { actions } = this.props;
+    const { pressMouseDown, pressMouseUp } = actions.dnd;
+
+    document.addEventListener('mousedown', pressMouseDown);
+    document.addEventListener('mouseup', pressMouseUp);
+  }
+
   render() {
     const { images } = this.props;
 

@@ -14,6 +14,10 @@ export default class FileUpload extends Component {
       size,
       type,
       src: target.result,
+      positionDiff: {
+        diffX: 0,
+        diffY: 0,
+      },
     });
 
     Array.prototype.forEach.apply(files, [(file) => {

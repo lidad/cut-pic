@@ -28,4 +28,8 @@ export default {
   removeFile: (state, { src }) => produce(state, (draft) => {
     draft.images = state.images.filter(image => image.src !== src);
   }),
+
+  modifyFilePosition: (state, { positionDiff, src }) => produce(state, (draft) => {
+    draft.images.find(image => image.src === src).positionDiff = positionDiff;
+  }),
 };

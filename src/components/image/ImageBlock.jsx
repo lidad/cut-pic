@@ -27,10 +27,11 @@ export default class ImageBlock extends Component {
 
   renderCanvas = () => {
     const { size } = this.state;
-    const { src } = this.props.imageProps;
+    const { imageProps } = this.props;
+
     return (<div className={style.cardCover}>
-      <ImageCanvas src={src} rate={size / MAX_IMAGE_SIZE} />
-      <CutIframe className={style.cutIframe} />
+      <ImageCanvas imageProps={imageProps} rate={size / MAX_IMAGE_SIZE} />
+      <CutIframe className={style.cutIframe} imageProps={imageProps} />
     </div>);
   }
 
