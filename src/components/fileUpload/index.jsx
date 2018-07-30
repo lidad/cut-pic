@@ -11,8 +11,9 @@ export default class FileUpload extends Component {
     const { addFile } = actions.picture;
     const readerOnload = ({ name, size, type }) => ({ target }) => addFile({
       name,
-      size,
       type,
+      size,
+      rate: 1,
       src: target.result,
       positionDiff: {
         diffX: 0,

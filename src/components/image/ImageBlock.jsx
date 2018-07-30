@@ -10,12 +10,11 @@ const { Meta } = Card;
 
 @injectActions
 export default class ImageBlock extends Component {
-  state = {
-    size: MAX_IMAGE_SIZE,
-  }
-
   changeSize = (size) => {
-    this.setState({ size });
+    const { actions, imageProps } = this.props;
+    const { src } = imageProps;
+
+    actions.picture.modifyFileRate({ src, rate: size / MAX_IMAGE_SIZE });
   }
 
   removeImage = () => {
@@ -26,19 +25,18 @@ export default class ImageBlock extends Component {
   }
 
   renderCanvas = () => {
-    const { size } = this.state;
     const { imageProps } = this.props;
+    const { rate } = imageProps;
 
     return (<div className={style.cardCover}>
-      <ImageCanvas imageProps={imageProps} rate={size / MAX_IMAGE_SIZE} />
+      <ImageCanvas imageProps={imageProps} rate={rate} />
       <CutIframe className={style.cutIframe} imageProps={imageProps} />
     </div>);
   }
 
   render() {
-    const { size } = this.state;
     const { imageProps } = this.props;
-    const { name } = imageProps;
+    const { name, rate } = imageProps;
 
     return (<Card
       hoverable
@@ -55,7 +53,7 @@ export default class ImageBlock extends Component {
         max={MAX_IMAGE_SIZE * 2}
         min={MIN_IMAGE_SIZE}
         onChange={this.changeSize}
-        value={size}
+        value={MAX_IMAGE_SIZE * rate}
       />
     </Card>);
   }

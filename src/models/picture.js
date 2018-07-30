@@ -34,4 +34,10 @@ export default {
 
     selectedImg.positionDiff = positionDiff;
   }),
+
+  modifyFileRate: (state, { rate, src }) => produce(state, (draft) => {
+    const selectedImg = draft.images.find(image => image.src === src);
+
+    selectedImg.rate = rate;
+  }),
 };

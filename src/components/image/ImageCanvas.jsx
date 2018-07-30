@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import style from './index.less';
-import { CANVAS_HEIGHT, CANVAS_WIDTH, CUT_IFRAME_WIDTH } from '../constant';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../constant';
 
 export default class ImageCanvas extends Component {
   componentDidMount() {
@@ -13,8 +13,8 @@ export default class ImageCanvas extends Component {
     if (!this.ctx) {
       return;
     }
-    const { imageProps, rate } = this.props;
-    const { src, positionDiff } = imageProps;
+    const { imageProps } = this.props;
+    const { src, positionDiff, rate } = imageProps;
     const { diffX, diffY, tDiffX, tDiffY } = positionDiff;
     const image = new Image();
 
@@ -22,6 +22,7 @@ export default class ImageCanvas extends Component {
     image.onload = () => {
       const { width, height } = image;
       const imageToCanvasRate = Math.min(CANVAS_WIDTH / width, CANVAS_HEIGHT / height);
+
       this.ctx.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
       this.ctx.drawImage(image,
         rate * (0 + diffX + tDiffX),
