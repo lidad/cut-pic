@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'mickey';
 import style from './index.less';
-import { PREVIEW_HEIGHT, PREVIEW_WIDTH } from '../constant';
+import { PREVIEW_HEIGHT, PREVIEW_WIDTH, CANVAS_HEIGHT, CANVAS_WIDTH } from '../constant';
 
 @connect(store => ({
   size: store.picture.size,
@@ -15,7 +15,7 @@ export default class CutImg extends Component {
 
 
   drawImg = () => {
-    const { imageProps } = this.props;
+    const { imageProps, size } = this.props;
     const { src, positionDiff, rate } = imageProps;
     const { diffX, diffY, tDiffX, tDiffY } = positionDiff;
 
@@ -28,8 +28,8 @@ export default class CutImg extends Component {
 
       this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
       this.ctx.drawImage(image,
-        rate * (0 + diffX + tDiffX),
-        rate * (0 + diffY + tDiffY),
+        rate * (diffX + tDiffX) - (CANVAS_WIDTH - size.width) / 2,
+        rate * (diffY + tDiffY) - (CANVAS_HEIGHT - size.height) / 2,
         (imageToCanvasRate * width * rate),
         (imageToCanvasRate * height * rate));
     };
