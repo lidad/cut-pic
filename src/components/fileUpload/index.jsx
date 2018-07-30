@@ -17,6 +17,8 @@ export default class FileUpload extends Component {
       positionDiff: {
         diffX: 0,
         diffY: 0,
+        tDiffX: 0,
+        tDiffY: 0,
       },
     });
 

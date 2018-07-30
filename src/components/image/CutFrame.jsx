@@ -16,12 +16,16 @@ export default class CutIframe extends Component {
   mouseDown = ({ offsetX, offsetY }) => {
     const { actions, imageProps } = this.props;
     const { src, positionDiff } = imageProps;
+    const { diffX, diffY, tDiffX, tDiffY } = positionDiff;
     actions.picture.modifyFilePosition({
       src,
       positionDiff: {
-        ...positionDiff,
         preX: offsetX,
         preY: offsetY,
+        tDiffX: 0,
+        tDiffY: 0,
+        diffX: tDiffX + diffX,
+        diffY: tDiffY + diffY,
       },
     });
   }
@@ -32,15 +36,16 @@ export default class CutIframe extends Component {
     if (mouseDown) {
       const { positionDiff, src } = imageProps;
       const { preX, preY, diffX, diffY } = positionDiff;
-      console.log(offsetX - preX, offsetY - preY);
+
       actions.picture.modifyFilePosition({
         src,
         positionDiff: {
-          // preX: diffX,
-          // preY: diffY,
-          ...positionDiff,
-          diffX: (offsetX - preX),
-          diffY: (offsetY - preY),
+          preX,
+          preY,
+          diffX,
+          diffY,
+          tDiffX: (offsetX - preX),
+          tDiffY: (offsetY - preY),
         },
       });
     }

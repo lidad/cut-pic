@@ -15,7 +15,7 @@ export default class ImageCanvas extends Component {
     }
     const { imageProps, rate } = this.props;
     const { src, positionDiff } = imageProps;
-    const { diffX, diffY } = positionDiff;
+    const { diffX, diffY, tDiffX, tDiffY } = positionDiff;
     const image = new Image();
 
     image.src = src;
@@ -24,8 +24,8 @@ export default class ImageCanvas extends Component {
       const imageToCanvasRate = Math.min(CANVAS_WIDTH / width, CANVAS_HEIGHT / height);
       this.ctx.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
       this.ctx.drawImage(image,
-        rate * (0 + diffX),
-        rate * (0 + diffY),
+        rate * (0 + diffX + tDiffX),
+        rate * (0 + diffY + tDiffY),
         (imageToCanvasRate * width * rate),
         (imageToCanvasRate * height * rate));
     };

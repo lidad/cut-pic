@@ -30,6 +30,8 @@ export default {
   }),
 
   modifyFilePosition: (state, { positionDiff, src }) => produce(state, (draft) => {
-    draft.images.find(image => image.src === src).positionDiff = positionDiff;
+    const selectedImg = draft.images.find(image => image.src === src);
+
+    selectedImg.positionDiff = positionDiff;
   }),
 };
