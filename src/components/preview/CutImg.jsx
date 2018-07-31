@@ -24,17 +24,17 @@ export default class CutImg extends Component {
     image.src = src;
     image.onload = () => {
       const { width, height } = image;
-      const imageToCanvasRate = Math.min(this.canvas.height / width, this.canvas.width / height);
+      const imageToCanvasRate = Math.min(PREVIEW_WIDTH / size.width, PREVIEW_WIDTH / size.height);
       const imageToOriCanvasRate = Math.min(CANVAS_WIDTH / width, CANVAS_HEIGHT / height);
       const oriWidth = imageToOriCanvasRate * width;
       const oriHeight = imageToOriCanvasRate * height;
 
       this.ctx.clearRect(0, 0, this.canvas.height, this.canvas.width);
       this.ctx.drawImage(image,
-        rate * (diffX + tDiffX) - (CANVAS_WIDTH - size.width) / 2,
-        rate * (diffY + tDiffY) - (CANVAS_HEIGHT - size.height) / 2,
-        rate * oriWidth,
-        rate * oriHeight,
+        imageToCanvasRate * ((rate * (diffX + tDiffX)) - ((CANVAS_WIDTH - size.width) / 2)),
+        imageToCanvasRate * ((rate * (diffY + tDiffY)) - ((CANVAS_HEIGHT - size.height) / 2)),
+        imageToCanvasRate * rate * oriWidth,
+        imageToCanvasRate * rate * oriHeight,
       );
     };
   }
@@ -47,8 +47,8 @@ export default class CutImg extends Component {
 
     return (<div className={style.imgBlock}>
       <canvas
-        width={width}
-        height={height}
+        width={imageToCanvasRate * width}
+        height={imageToCanvasRate * height}
         className={style.imageCanvas}
         ref={c => this.canvas = c}
       />
