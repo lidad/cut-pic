@@ -25,8 +25,8 @@ export default class ImageCanvas extends Component {
 
       this.ctx.clearRect(0, 0, CANVAS_HEIGHT, CANVAS_WIDTH);
       this.ctx.drawImage(image,
-        rate * (0 + diffX + tDiffX),
-        rate * (0 + diffY + tDiffY),
+        rate * (diffX + tDiffX),
+        rate * (diffY + tDiffY),
         (imageToCanvasRate * width * rate),
         (imageToCanvasRate * height * rate));
     };
