@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Slider } from 'antd';
+import { Card, Slider, Icon, Button } from 'antd';
 import { injectActions } from 'mickey';
 import ImageCanvas from './ImageCanvas';
 import style from './index.less';
@@ -15,6 +15,21 @@ export default class ImageBlock extends Component {
     const { src } = imageProps;
 
     actions.picture.modifyFileRate({ src, rate: size / MAX_IMAGE_SIZE });
+  }
+
+  reset = () => {
+    const { actions, imageProps } = this.props;
+    const { src } = imageProps;
+    const { modifyFilePosition, modifyFileRate } = actions.picture;
+    const positionDiff = {
+      diffX: 0,
+      diffY: 0,
+      tDiffX: 0,
+      tDiffY: 0,
+    };
+
+    modifyFilePosition({ positionDiff, src });
+    modifyFileRate({ src, rate: 1 });
   }
 
   removeImage = () => {
@@ -49,12 +64,17 @@ export default class ImageBlock extends Component {
           <a className={style.remove} onClick={this.removeImage}>移除</a>
         </p>}
       />
-      <Slider
-        max={MAX_IMAGE_SIZE * 2}
-        min={MIN_IMAGE_SIZE}
-        onChange={this.changeSize}
-        value={MAX_IMAGE_SIZE * rate}
-      />
+      <div className={style.operate}>
+        <Slider
+          max={MAX_IMAGE_SIZE * 2}
+          min={MIN_IMAGE_SIZE}
+          onChange={this.changeSize}
+          value={MAX_IMAGE_SIZE * rate}
+        />
+        <Button onClick={this.reset} className={style.btn}>
+          <Icon type="reload" />
+        </Button>
+      </div>
     </Card>);
   }
 }

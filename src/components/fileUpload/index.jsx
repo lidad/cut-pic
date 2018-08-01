@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { injectActions } from 'mickey';
+import { Button } from 'antd';
+import { injectActions, connect } from 'mickey';
 import Size from './Size';
 import style from './index.less';
 
 @injectActions
+@connect(store => ({
+  images: store.picture.images,
+}))
 export default class FileUpload extends Component {
   uploadFile = (e) => {
     const { files } = e.target;
@@ -33,11 +37,16 @@ export default class FileUpload extends Component {
   }
 
   render() {
+    const { images } = this.props;
+
     return (<div className={style.size} >
-      <label className={style.upload}>
-        <input className={style.uploadInput} type="file" multiple onChange={this.uploadFile} />
+      <div className={style.file}>
+        <label className={style.upload}>
+          <input className={style.uploadInput} type="file" multiple onChange={this.uploadFile} />
         选择文件
-      </label>
+        </label>
+        {!!images.length && <Button type="dashed">生成图片</Button>}
+      </div>
       <Size />
     </div>);
   }
