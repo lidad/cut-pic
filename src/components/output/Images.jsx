@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { injectActions, connect } from 'mickey';
+import { saveAs } from 'file-saver/FileSaver';
+import style from './index.less';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../constant';
 import { delayPromise } from '../common';
-
-const ts = [];
 
 @injectActions
 @connect(store => ({
@@ -14,19 +14,19 @@ export default class Images extends Component {
     this.ctx = this.canvas.getContext('2d');
   }
 
-  async componentWillReceiveProps({ output, images }) {
-    if (output && output !== this.props.output) {
-      await Promise.all(images.map(image => this.drawImg(image)));
-    }
-  }
+  async outputImg() {
+    const { output, images } = this.props;
 
-  componentWillUnmount() {
-    ts.map(t => clearTimeout(t));
+    if (output) {
+      for (const image of images) {
+        await this.drawImg(image);
+      }
+    }
   }
 
   async drawImg(imageProps) {
     const { size } = this.props;
-    const { src, positionDiff, rate } = imageProps;
+    const { src, positionDiff, rate, name } = imageProps;
     const { diffX, diffY, tDiffX, tDiffY } = positionDiff;
     const image = new Image();
 
@@ -44,20 +44,25 @@ export default class Images extends Component {
         rate * oriWidth,
         rate * oriHeight,
       );
-    };
-    const iUrl = this.canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
-    window.location.href = iUrl;
+      this.canvas.toBlob((blob) => {
+        saveAs(blob, `${name}-${size.width}x${size.height}.png`);
+      });
+    };
+
     await delayPromise(2000);
   }
 
   render() {
+    this.outputImg();
+
     const { size } = this.props;
     const { width, height } = size;
 
     return (<canvas
       width={width}
       height={height}
+      className={style.canvas}
       ref={c => this.canvas = c}
     />);
   }

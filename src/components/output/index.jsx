@@ -15,8 +15,9 @@ export default class Output extends Component {
     return (<Modal
       title="生成图片"
       visible={visible}
-      onOk={hideOutput}
       onCancel={hideOutput}
+      cancelText="关闭"
+      bodyStyle={{ textAlign: 'center' }}
     >
       <Images output={visible} />
     </Modal>);
