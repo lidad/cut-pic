@@ -37,7 +37,8 @@ export default class FileUpload extends Component {
   }
 
   render() {
-    const { images } = this.props;
+    const { images, actions } = this.props;
+    const { showOutput } = actions.output;
 
     return (<div className={style.size} >
       <div className={style.file}>
@@ -45,7 +46,7 @@ export default class FileUpload extends Component {
           <input className={style.uploadInput} type="file" multiple onChange={this.uploadFile} />
         选择文件
         </label>
-        {!!images.length && <Button type="dashed">生成图片</Button>}
+        {!!images.length && <Button type="dashed" onClick={showOutput}>生成图片</Button>}
       </div>
       <Size />
     </div>);

@@ -4,6 +4,7 @@ import FileUpload from './fileUpload';
 import Image from './image';
 import Preview from './preview';
 import style from './index.less';
+import Output from './output';
 
 const { Header, Content } = Layout;
 
@@ -14,6 +15,7 @@ const Main = () => (
     </Header>
     <Content>
       <Image />
+      <Output />
     </Content>
     <Preview />
   </Layout>
