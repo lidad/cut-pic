@@ -1,16 +1,5 @@
-# c_pic
+# 裁图工具
 
-> A mickey project
+> 真他娘的好用~
 
-## Usage
-
-``` bash
-# install dependencies
-npm install
-
-# start dev server
-npm start
-
-# build for production with minification
-npm run build
-```
+![image](http://github.com/lidad/cut-pic/raw/master/image/20180803210736.png)
